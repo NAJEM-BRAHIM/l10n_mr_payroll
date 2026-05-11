@@ -6,7 +6,7 @@
     'summary': 'Règles salariales pour la République Islamique de Mauritanie',
     'author': 'Localisation Mauritanie',
     'license': 'LGPL-3',
-    'depends': ['hr_payroll', 'hr_contract'],
+    'depends': ['hr_payroll'],
     'data': [
         'security/ir.model.access.csv',
         'data/hr_salary_rule_category_data.xml',
