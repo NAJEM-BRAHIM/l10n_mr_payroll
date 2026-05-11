@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="hr_salary_rule_category_basic_mr" model="hr.salary.rule.category">
+            <field name="name">Salaire de Base (MR)</field>
+            <field name="code">BASIC_MR</field>
+        </record>
+        <record id="hr_salary_rule_category_allowances_mr" model="hr.salary.rule.category">
+            <field name="name">Indemnités et Primes (MR)</field>
+            <field name="code">ALW_MR</field>
+        </record>
+        <record id="hr_salary_rule_category_overtime_mr" model="hr.salary.rule.category">
+            <field name="name">Heures Supplémentaires (MR)</field>
+            <field name="code">OT_MR</field>
+        </record>
+        <record id="hr_salary_rule_category_gross_mr" model="hr.salary.rule.category">
+            <field name="name">Salaire Brut (MR)</field>
+            <field name="code">GROSS_MR</field>
+        </record>
+        <record id="hr_salary_rule_category_deductions_mr" model="hr.salary.rule.category">
+            <field name="name">Retenues Salariales (MR)</field>
+            <field name="code">DED_MR</field>
+        </record>
+        <record id="hr_salary_rule_category_employer_mr" model="hr.salary.rule.category">
+            <field name="name">Charges Patronales (MR)</field>
+            <field name="code">EMP_MR</field>
+        </record>
+        <record id="hr_salary_rule_category_net_mr" model="hr.salary.rule.category">
+            <field name="name">Salaire Net (MR)</field>
+            <field name="code">NET_MR</field>
+        </record>
+    </data>
+</odoo>

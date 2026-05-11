@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_config_settings_mr_payroll" model="ir.ui.view">
+        <field name="name">res.config.settings.mauritanie.payroll</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr_payroll.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='payroll']" position="inside">
+                <h2>Mauritanie - Paramètres Salariales</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <div class="content-group mt8">
+                                <div class="row">
+                                    <label class="col-lg-6 o_light_label" for="l10n_mr_smig">SMIG (MRU/mois)</label>
+                                    <field name="l10n_mr_smig" class="col-lg-6"/>
+                                </div>
+                                <div class="row">
+                                    <label class="col-lg-6 o_light_label" for="l10n_mr_cnss_employer_rate">CNSS Employeur (%)</label>
+                                    <field name="l10n_mr_cnss_employer_rate" class="col-lg-6"/>
+                                </div>
+                                <div class="row">
+                                    <label class="col-lg-6 o_light_label" for="l10n_mr_cnss_employee_rate">CNSS Salarié (%)</label>
+                                    <field name="l10n_mr_cnss_employee_rate" class="col-lg-6"/>
+                                </div>
+                                <div class="row">
+                                    <label class="col-lg-6 o_light_label" for="l10n_mr_cnam_rate">CNAM Salarié (%)</label>
+                                    <field name="l10n_mr_cnam_rate" class="col-lg-6"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

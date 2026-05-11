@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_contract_form_mr" model="ir.ui.view">
+        <field name="name">hr.contract.form.mauritanie</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='hr_contract_mpages']" position="after">
+                <page name="l10n_mr_payroll" string="Mauritanie">
+                    <group string="Statut">
+                        <field name="l10n_mr_is_resident"/>
+                        <field name="l10n_mr_seniority_years" readonly="1"/>
+                        <field name="l10n_mr_annual_leave_days" readonly="1"/>
+                    </group>
+                    <group string="Indemnités">
+                        <field name="l10n_mr_transport_allowance"/>
+                        <field name="l10n_mr_housing_allowance"/>
+                        <field name="l10n_mr_meal_allowance"/>
+                    </group>
+                    <group string="Heures Supplémentaires">
+                        <field name="l10n_mr_overtime_hours"/>
+                        <field name="l10n_mr_overtime_night_hours"/>
+                        <field name="l10n_mr_overtime_rest_hours"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

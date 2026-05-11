@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="hr_rule_mr_basic" model="hr.salary.rule">
+            <field name="name">Salaire de Base</field>
+            <field name="code">BASIC</field>
+            <field name="sequence">10</field>
+            <field name="category_id" ref="hr_salary_rule_category_basic_mr"/>
+            <field name="struct_id" ref="structure_mr_employee"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.wage</field>
+            <field name="appears_on_payslip">True</field>
+        </record>
+
+        <record id="hr_rule_mr_overtime_day" model="hr.salary.rule">
+            <field name="name">Heures Supp. Jour (x1,15)</field>
+            <field name="code">OT_DAY</field>
+            <field name="sequence">20</field>
+            <field name="category_id" ref="hr_salary_rule_category_overtime_mr"/>
+            <field name="struct_id" ref="structure_mr_employee"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = contract.l10n_mr_overtime_hours > 0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = (contract.wage / 173.33) * contract.l10n_mr_overtime_hours * 1.15
+            </field>
+            <field name="appears_on_payslip">True</field>
+        </record>
+
+        <record id="hr_rule_mr_overtime_night" model="hr.salary.rule">
+            <field name="name">Heures Supp. Nuit (x1,40)</field>
+            <field name="code">OT_NIGHT</field>
+            <field name="sequence">21</field>
+            <field name="category_id" ref="hr_salary_rule_category_overtime_mr"/>
+            <field name="struct_id" ref="structure_mr_employee"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = contract.l10n_mr_overtime_night_hours > 0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = (contract.wage / 173.33) * contract.l10n_mr_overtime_night_hours * 1.40
+            </field>
+            <field name="appears_on_payslip">True</field>
+        </record>
+
+        <record id="hr_rule_mr_overtime_rest" model="hr.salary.rule">
+            <field name="name">Heures Supp. Repos (x1,50)</field>
+            <field name="code">OT_REST</field>
+            <field name="sequence">22</field>
+            <field name="category_id" ref="hr_salary_rule_category_overtime_mr"/>
+            <field name="struct_id" ref="structure_mr_employee"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = contract.l10n_mr_overtime_rest_hours > 0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = (contract.wage / 173.33) * contract.l10n_mr_overtime_rest_hours * 1.50
+            </field>
+            <field name="appears_on_payslip">True</field>
+        </record>
+
+        <record id="hr_rule_mr_transport" model="hr.salary.rule">
+            <field name="name">Indemnité de Transport</field>
+            <field name="code">ALW_TRANSPORT</field>
+            <field name="sequence">30</field>
+            <field name="category_id" ref="hr_salary_rule_category_allowances_mr"/>
+            <field name="struct_id" ref="structure_mr_employee"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = contract.l10n_mr_transport_allowance > 0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.l10n_mr_transport_allowance</field>
+            <field name="appears_on_payslip">True</field>
+        </record>
+
+        <record id="hr_rule_mr_housing" model="hr.salary.rule">
+            <field name="name">Indemnité de Logement</field>
+            <field name="code">ALW_HOUSING</field>
+            <field name="sequence">31</field>
+            <field name="category_id" ref="hr_salary_rule_category_allowances_mr"/>
+            <field name="struct_id" ref="structure_mr_employee"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = contract.l10n_mr_housing_allowance > 0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.l10n_mr_housing_allowance</field>
+            <field name="appears_on_payslip">True</field>
+        </record>
+
+        <record id="hr_rule_mr_seniority" model="hr.salary.rule">
+            <field name="name">Prime d'Ancienneté</field>
+            <field name="code">SENIORITY</field>
+            <field name="sequence">35</field>
+            <field name="category_id" ref="hr_salary_rule_category_allowances_mr"/>
+            <field name="struct_id" ref="structure_mr_employee"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = contract.l10n_mr_seniority_years >= 5</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+years = contract.l10n_mr_seniority_years
+rate = 0.25 if years >= 25 else 0.20 if years >= 20 else 0.15 if years >= 15 else 0.10 if years >= 10 else 0.05
+result = contract.wage * rate
+            </field>
+            <field name="appears_on_payslip">True</field>
+        </record>
+
+        <record id="hr_rule_mr_gross" model="hr.salary.rule">
+            <field name="name">Salaire Brut Total</field>
+            <field name="code">GROSS</field>
+            <field name="sequence">100</field>
+            <field name="category_id" ref="hr_salary_rule_category_gross_mr"/>
+            <field name="struct_id" ref="structure_mr_employee"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = sum(l.total for l in payslip.line_ids if l.total > 0 and l.sequence < 100)
+            </field>
+            <field name="appears_on_payslip">True</field>
+        </record>
+
+        <record id="hr_rule_mr_cnss_employee" model="hr.salary.rule">
+            <field name="name">CNSS Salarié (1%)</field>
+            <field name="code">CNSS_EMP</field>
+            <field name="sequence">200</field>
+            <field name="category_id" ref="hr_salary_rule_category_deductions_mr"/>
+            <field name="struct_id" ref="structure_mr_employee"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+gross = sum(l.total for l in payslip.line_ids if l.code == 'GROSS')
+rate = float(env['ir.config_parameter'].sudo().get_param('l10n_mr_payroll.cnss_employee_rate', '1.0')) / 100.0
+result = -gross * rate
+            </field>
+            <field name="appears_on_payslip">True</field>
+        </record>
+
+        <record id="hr_rule_mr_cnam_employee" model="hr.salary.rule">
+            <field name="name">CNAM Salarié (4%)</field>
+            <field name="code">CNAM_EMP</field>
+            <field name="sequence">210</field>
+            <field name="category_id" ref="hr_salary_rule_category_deductions_mr"/>
+            <field name="struct_id" ref="structure_mr_employee"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+gross = sum(l.total for l in payslip.line_ids if l.code == 'GROSS')
+rate = float(env['ir.config_parameter'].sudo().get_param('l10n_mr_payroll.cnam_rate', '4.0')) / 100.0
+result = -gross * rate
+            </field>
+            <field name="appears_on_payslip">True</field>
+        </record>
+
+        <record id="hr_rule_mr_its" model="hr.salary.rule">
+            <field name="name">ITS - Impôt sur Traitements et Salaires</field>
+            <field name="code">ITS</field>
+            <field name="sequence">300</field>
+            <field name="category_id" ref="hr_salary_rule_category_deductions_mr"/>
+            <field name="struct_id" ref="structure_mr_employee"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+gross = sum(l.total for l in payslip.line_ids if l.code == 'GROSS')
+cnss = abs(sum(l.total for l in payslip.line_ids if l.code in ('CNSS_EMP', 'CNAM_EMP')))
+ri = max(gross - cnss, 0)
+tranches = [(6000,0.0),(9000,0.15),(21000,0.25),(45000,0.35),(float('inf'),0.40)]
+its, prev = 0.0, 0.0
+for p, t in tranches:
+    if ri &lt;= prev: break
+    its += (min(ri, p) - prev) * t
+    prev = p
+result = -round(its, 2)
+            </field>
+            <field name="appears_on_payslip">True</field>
+        </record>
+
+        <record id="hr_rule_mr_cnss_employer" model="hr.salary.rule">
+            <field name="name">CNSS Employeur (15%) - Info</field>
+            <field name="code">CNSS_EMPL</field>
+            <field name="sequence">400</field>
+            <field name="category_id" ref="hr_salary_rule_category_employer_mr"/>
+            <field name="struct_id" ref="structure_mr_employee"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+gross = sum(l.total for l in payslip.line_ids if l.code == 'GROSS')
+rate = float(env['ir.config_parameter'].sudo().get_param('l10n_mr_payroll.cnss_employer_rate', '15.0')) / 100.0
+result = gross * rate
+            </field>
+            <field name="appears_on_payslip">True</field>
+        </record>
+
+        <record id="hr_rule_mr_net" model="hr.salary.rule">
+            <field name="name">Net à Payer</field>
+            <field name="code">NET</field>
+            <field name="sequence">900</field>
+            <field name="category_id" ref="hr_salary_rule_category_net_mr"/>
+            <field name="struct_id" ref="structure_mr_employee"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = sum(l.total for l in payslip.line_ids
+    if l.category_id.code in ('GROSS_MR','DED_MR','ALW_MR','OT_MR','BASIC_MR'))
+            </field>
+            <field name="appears_on_payslip">True</field>
+        </record>
+
+    </data>
+</odoo>

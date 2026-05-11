@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="structure_mr_employee" model="hr.payroll.structure">
+            <field name="name">Fiche de Paie Mauritanie (Mensuel)</field>
+            <field name="type_id" ref="structure_type_employee_mr"/>
+            <field name="country_id" ref="base.mr"/>
+        </record>
+    </data>
+</odoo>
